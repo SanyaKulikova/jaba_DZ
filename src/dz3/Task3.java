@@ -17,8 +17,8 @@ public class Task3 {
         int hum = in.nextInt();
 
 
-        for (int a = 2, b = 100; true;) {
-            int comp = (a + b) / 2;
+        for (int a = 2, b = 100 + 1; true;) {
+            int comp = (a + b) / 2 ;
             System.out.println("Вы загадли число " + comp + " ?");
             int hum1 = in.nextInt();
             if (hum1 == 1) {
@@ -28,17 +28,13 @@ public class Task3 {
                 System.out.println("Загаданное вами число больше?");
                 hum1 = in.nextInt();
                 if (hum1 == 1) {
-                    a = (a + b) / 2;
+                    a = (a + b)/ 2;
                     b = b;
                 } else {
                     a = a;
                     b = (a + b) / 2;
                 }
             }
-
-
-
-
 
         }
 
