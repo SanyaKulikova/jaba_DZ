@@ -29,12 +29,12 @@ public class Task3 {
             arr4[index] = newSc.nextLine();
 
             for (int i = index - 1; i >= 0; i--) {
-                if (arr4[i].equals(arr4[index])) {
-                    while (arr4[i].equals(arr4[index])) {
+                if (arr4[index].equals(arr4[i])) {
+                    while (arr4[index].equals(arr4[i])) {
                         System.out.println("введите другое слово");
-                        arr4[i] = newSc.nextLine();
+                        arr4[index] = newSc.nextLine();
                     }
-                } else break;
+                }
             }
 
         }
