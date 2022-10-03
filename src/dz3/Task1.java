@@ -11,6 +11,9 @@ import java.util.Scanner;
 public class Task1 {
     public static void main(String[] args) {
 
+
+        // можно сделать цикл, где будет запрашиваться количество тарелок и моющего средства пока пользователь не введет
+        //правильные значения
         Scanner in = new Scanner(System.in);
         System.out.println("Введите количество тарелок (целое положительное число)");
         int plates = in.nextInt();
@@ -20,12 +23,33 @@ public class Task1 {
         while (plates > 0) {
             if (soap < 0.5) {
                 System.out.println("Моющего средства не хватает");
-                break;
+                break; // это лишнее
             }
             soap = soap - 0.5;
             plates --;
             System.out.println(soap);
         }
         System.out.println("Осталось" + " " + plates + " тарелок и " + soap + " моющего средства");
+
+
+
+        // более красивое решение:
+        Scanner sc = new Scanner(System.in);
+        int n = 0;
+        double m = 0;
+        while (n <= 0 || m <= 0) {
+            System.out.println("Введите количество тарелок");
+            n = sc.nextInt();
+            System.out.println("Введите объем моющего средства");
+            m = sc.nextDouble();
+        }
+        while (n > 0 && m >= 0.5 ) {
+            m -= 0.5;
+            n --;
+            System.out.println(m);
+        }
+        System.out.println("Осталось" + " " + n + " тарелок и " + m + " моющего средства");
+
+
     }
 }
