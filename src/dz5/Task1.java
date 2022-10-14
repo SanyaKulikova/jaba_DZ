@@ -13,20 +13,19 @@ public class Task1 {
         int len = sc.nextInt();
 
         int[] arr1 = new int[len];
+        int overage = 0;
+        int max = arr1[0];
+        int min = 100; // тут так, потому что если сделать первое значение массива до цикла его заполнения- оно будет ноль
+        //и не будет элементов массива меньше ноля
         for (int index = 0; index < len; index++) {
             arr1[index] = (int) (Math.random() * 101); // пусть будут случайные числа от нуля до ста
+            overage += arr1[index];
+            if (arr1[index] > max) max = arr1[index];
+            if (arr1[index] < min) min = arr1[index];
         }
         System.out.println(Arrays.toString(arr1));
 
-        int overage = 0;
-        int max = arr1[0];
-        int min = arr1[0];
-        for (int elementValue: arr1) {
-            //System.out.println(elementValue);
-            overage += elementValue;
-            if (elementValue > max) max = elementValue;
-            if (elementValue < min) min = elementValue;
-        }
+
         System.out.println("Максимальное значение элементов массива равно " + max);
         System.out.println("Минимальное значение элементов массива равно " + min);
         System.out.println("Среднее арифметическое значение элементов массива равно " + overage / len);
