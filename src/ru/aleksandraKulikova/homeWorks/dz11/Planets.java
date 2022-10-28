@@ -1,7 +1,13 @@
-package ru.aleksandraKulikova.homeWorks.dz9;
+package ru.aleksandraKulikova.homeWorks.dz11;
+
+//создать enum, перечисляющий 3 любые планеты солнечной системы +
+//значения всех свойств задать через конструктор: масса, радиус и название планеты +
+//реализовать возможность изменить массу и радиус планеты +
 
 public enum Planets {
-    MERCURY("mercury", 436746, 75856), URANUS("uranus",46764,48478) , VENUS ("venus", 68567856, 4746747);
+    MERCURY("mercury", 436746, 75856),
+    URANUS("uranus",46764,48478) ,
+    VENUS ("venus", 68567856, 4746747);
 
     private  double mass;
     private String name;
@@ -9,7 +15,10 @@ public enum Planets {
 
     Planets (String name, double mass, double radius ){
         setMass(mass);
-        setName(name);
+        if (name == null || name.length() < 3){
+            throw new IllegalArgumentException("название планеты не может быть короче 3 символов");
+        }
+        this.name = name;
         setRadius(radius);
     }
 
@@ -24,16 +33,6 @@ public enum Planets {
         this.mass = mass;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        if (name == null || name.length() < 3){
-            throw new IllegalArgumentException("название планеты не может быть короче 3 символов");
-        }
-        this.name = name;
-    }
 
     public double getRadius() {
         return radius;

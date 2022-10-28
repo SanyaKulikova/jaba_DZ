@@ -1,6 +1,6 @@
-package ru.aleksandraKulikova.homeWorks.dz9;
+package ru.aleksandraKulikova.homeWorks.dz11;
 
-import javax.swing.*;
+//в методе main перебрать массив с элементами перечисления, вывести массу, радиус и название каждой планеты +
 
 public class Application {
     public static void main(String[] args) {
