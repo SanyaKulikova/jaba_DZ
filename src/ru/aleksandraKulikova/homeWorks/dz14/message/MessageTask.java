@@ -1,76 +1,46 @@
 package ru.aleksandraKulikova.homeWorks.dz14.message;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class MessageTask {
 
+    // I. Подсчитать количество сообщений для каждого приоритета
+    //   Ответ в консоль
     public static void countEachPriority(List<Message> messageList) {
-        // Подсчитать количество сообщений для каждого приоритета
-        // Ответ в консоль
+        // я сделала через создание миллиона переменных и if
+        // это правильно, но не красиво и для программы напряжно
 
-        int high = 0;
-        int low = 0;
-        int medium = 0;
-        int urgent = 0;
-        for (Message message: messageList) {
-            if (message.getPriority() == MessagePriority.LOW) low++;
-            else if (message.getPriority() == MessagePriority.HIGH) high++;
-            else if (message.getPriority() == MessagePriority.MEDIUM) medium++;
-            else urgent++;
+        int[] counts = new int[MessagePriority.values().length]; // создали массив, количество элементов котого равен
+        // количеству элементов перечисления
+        for (Message message : messageList) { // перебираем пришедший список
+            counts[message.getPriority().ordinal()] += 1; // элемент массива с индексом равным индексу его перечисления
+            // увеличивается на 1
         }
-        System.out.println("Количество сообщений с приоритетом LOW: " + low);
-        System.out.println("Количество сообщений с приоритетом MEDIUM: " + medium);
-        System.out.println("Количество сообщений с приоритетом HIGH: " + high);
-        System.out.println("Количество сообщений с приоритетом URGENT: " + urgent);
+        for (MessagePriority priority : MessagePriority.values()) { // красиво выводим
+            System.out.println(priority + ": " + counts[priority.ordinal()]);
+        }
     }
 
+
+    // II. Подсчитать количество сообщений для каждого кода сообщения
+    //   Ответ в консоль
     public static void countEachCode(List<Message> messageList) {
-        // Подсчитать количество сообщений для каждого кода сообщения
-        //  Ответ в консоль
 
-        int zero = 0; // вроде можно делать это не так, карсивее и короче, но не могу вспомнить
-        int one = 0;
-        int two = 0;
-        int three = 0;
-        int four = 0;
-        int five = 0;
-        int six = 0;
-        int seven = 0;
-        int eight = 0;
-        int nine = 0;
-        for (Message message: messageList) {
-            switch (message.getCode()){
-                case 0 -> zero++;
-                case 1 -> one++;
-                case 2 -> two++;
-                case 3 -> three++;
-                case 4 -> four++;
-                case 5 -> five++;
-                case 6 -> six++;
-                case 7 -> seven++;
-                case 8 -> eight++;
-                case 9 -> nine++;
-            }
+        int[] counts = new int[10]; // на этот раз мы знаем, какие коды и сколько их
+        for (Message message : messageList) {
+            counts[message.getCode()] += 1;
         }
-        System.out.println("Количество сообщений с кодом 0: " + zero);
-        System.out.println("Количество сообщений с кодом 1: " + one);
-        System.out.println("Количество сообщений с кодом 2: " + two);
-        System.out.println("Количество сообщений с кодом 3: " + three);
-        System.out.println("Количество сообщений с кодом 4: " + four);
-        System.out.println("Количество сообщений с кодом 5: " + five);
-        System.out.println("Количество сообщений с кодом 6: " + six);
-        System.out.println("Количество сообщений с кодом 7: " + seven);
-        System.out.println("Количество сообщений с кодом 8: " + eight);
-        System.out.println("Количество сообщений с кодом 9: " + nine);
+        for (int i = 0; i < counts.length; i++) {
+            System.out.println("Код " + i + ", встречается = " + counts[i]);
+        }
     }
 
+    // III. Подсчитать количество уникальных сообщений
+        // Ответ в консоль
     public static void uniqueMessageCount(List<Message> messageList) {
-        // TODO: Подсчитать количество уникальных сообщений
-        //  Ответ в консоль
-        Message[] messages = (Message[]) messageList.toArray();
+        // я делала массив и пыталас сделать через вложенные циклы - в принципе реализуемо,
+        // но программа ругалась на приведение типов, и вообше это по дурацки
+        /* Message[] messages = (Message[]) messageList.toArray();
         int ds = 0;
         for(int i = 0; i < messages.length; i++) {
             for (int j = i + 1; j < messages.length; j++) {
@@ -80,56 +50,50 @@ public class MessageTask {
             }
         }
         int un = messageList.size() - ds;
-        System.out.println("Количество уникальных сообщений: " + un);
+        System.out.println("Количество уникальных сообщений: " + un);*/
 
+        System.out.println("Количество уникальных сообщений: " +
+                new HashSet<>(messageList).size());
+        // В сетах хранятся только уникальные элементы!!
+        // поэтому размер множества из списка будет количеством уникальных элементов!
     }
 
+    // VI. вернуть только неповторяющиеся сообщения и в том порядке,
+    //        //  в котором они встретились в первоначальном списке
+    //        //  Например, было: [{URGENT, 4}, {HIGH, 9}, {LOW, 3}, {HIGH, 9}]
+    //        //  на выходе: [{URGENT, 4}, {HIGH, 9}, {LOW, 3}]
     public static List<Message> uniqueMessagesInOriginalOrder(List<Message> messageList) {
-        // TODO: вернуть только неповторяющиеся сообщения и в том порядке,
-        //  в котором они встретились в первоначальном списке
-        //  Например, было: [{URGENT, 4}, {HIGH, 9}, {LOW, 3}, {HIGH, 9}]
-        //  на выходе: [{URGENT, 4}, {HIGH, 9}, {LOW, 3}]
-        Message[] messages = (Message[]) messageList.toArray();
-        int ds = 0;
-        ArrayList<Message> nonUniqueMessages = new ArrayList<>();
-        for(int i = 0; i < messages.length; i++) {
-            for (int j = i + 1; j < messages.length; j++) {
-                if (messages[i].equals(messages[j])) {
-                    ds++;
-                    nonUniqueMessages.add(messages[i]);
-                }
-            }
-        }
-        ArrayList<Message> uniqueMessages = new ArrayList<>();
-        uniqueMessages.addAll(messageList);
-        uniqueMessages.removeAll(nonUniqueMessages);
-        return uniqueMessages;
+        // тоже самое - пыталась через массивы
+
+        return new ArrayList<>(new LinkedHashSet<>(messageList));
+        // создаем новый список на основе LinkedHashSet, который на основе переданного
     }
 
+    // V. удалить из коллекции каждое сообщение с заданным приоритетом
+    //    вывод в консоль до удаления и после удаления
     public static void removeEach(List<Message> messageList, MessagePriority priority) {
-        // удалить из коллекции каждое сообщение с заданным приоритетом
-        //  вывод в консоль до удаления и после удаления
-        System.out.println(messageList);
+
+        System.out.println("До удаления: " + messageList);
         Iterator<Message> iterator = messageList.iterator();
         while (iterator.hasNext()){
             if (iterator.next().getPriority() == priority) {
                 iterator.remove();
             }
         }
-        System.out.println(messageList);
+        System.out.println("После удаления: " + messageList);
     }
 
+    // VI. удалить из коллекции все сообщения, кроме тех, которые имеют заданный приоритет
+    //     вывод в консоль до удаления и после удаления
     public static void removeOther(List<Message> messageList, MessagePriority priority) {
-        // удалить из коллекции все сообщения, кроме тех, которые имеют заданный приоритет
-        //  вывод в консоль до удаления и после удаления
-        System.out.println(messageList);
+        System.out.println("До удаления: " + messageList);
         Iterator<Message> iterator = messageList.iterator();
         while (iterator.hasNext()){
             if (iterator.next().getPriority() != priority) {
                 iterator.remove();
             }
         }
-        System.out.println(messageList);
+        System.out.println("После удаления: " + messageList);
 
     }
 
@@ -141,7 +105,9 @@ public class MessageTask {
 
         MessageTask.countEachCode(messages);
 
-        // MessageTask.uniqueMessageCount(messages);
+        MessageTask.uniqueMessageCount(messages);
+
+        MessageTask.uniqueMessagesInOriginalOrder(messages);
 
         MessageTask.removeEach(messages, MessagePriority.HIGH);
 

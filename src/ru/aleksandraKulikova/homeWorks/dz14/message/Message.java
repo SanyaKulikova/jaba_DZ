@@ -41,13 +41,13 @@ public class Message {
         return priority == message.priority;
     }
 
+
     @Override
     public int hashCode() {
         int result = code;
         result = 31 * result + (priority != null ? priority.hashCode() : 0);
         return result;
     }
-
     @Override
     public String toString() {
         return "Message{" +
