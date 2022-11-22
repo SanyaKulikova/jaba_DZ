@@ -18,7 +18,11 @@ public class ThreadsAtHome {
         CopyOnWriteArrayList<String> strings = new CopyOnWriteArrayList<>();
         Handler<String> handler = new Handler<>();
 
-         Thread thread01 = new Thread( () -> { // использую лямбда выражения потому что не понимаю
+        FirstThread thread01 = new FirstThread(strings);
+        SecondThread thread02 = new SecondThread(strings);
+
+
+         /*Thread thread01 = new Thread( () -> { // использую лямбда выражения потому что не понимаю
              // как добавлять в коллекцию, если в run нельзя передавать
              // а если создавать коллекцию у run в отдельном классе, то это будет уже не общая коллекция
              Scanner scanner = new Scanner(System.in);
@@ -29,9 +33,9 @@ public class ThreadsAtHome {
                  strings.add(string);
                  a--;
              }
-         });
+         });*/
 
-         Thread thread02 = new Thread( () -> {
+         /*Thread thread02 = new Thread( () -> {
              try {
                  Thread.sleep(30_000);
              } catch (InterruptedException e) {
@@ -42,7 +46,7 @@ public class ThreadsAtHome {
                      .get();
              handler.writeToFile(minBySize);
              strings.remove(minBySize);
-         });
+         });*/
 
         thread01.start();
         thread02.start();
@@ -55,6 +59,7 @@ public class ThreadsAtHome {
         }
         System.out.println(strings);
         String result = handler.readFromFile();
+        System.out.println(result);
 
 
 
